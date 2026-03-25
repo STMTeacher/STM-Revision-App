@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Welcome to the App</h1>
+    <button id="clearCacheButton">Clear Cache</button>
+    <script>
+        document.getElementById('clearCacheButton').addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear the cache?')) {
+                // Logic to clear the cache
+                alert('Cache cleared!');
+            }
+        });
+    </script>
+</body>
+</html>
