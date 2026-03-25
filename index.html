@@ -3,29 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maths Diagnostic Tool</title>
+    <title>Multi-Subject Revision App</title>
     <style>
         body {
-            background-color: #000000;
-            color: #FF0000; /* Red */
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
         }
-        .warning {
-            color: #FFFF00; /* Yellow */
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            color: white;
+            background-color: #ff0000; /* Red */
+        }
+        .button.yellow {
+            background-color: #ffff00; /* Yellow */
+            color: black;
+        }
+        .button.black {
+            background-color: #000000; /* Black */
         }
     </style>
 </head>
 <body>
-    <h1>Maths Diagnostic Tool</h1>
-    <div class="warning">Please complete all fields before submitting.</div>
-    <button onclick="clearCache()">Clear Cache</button>
+    <h1>Multi-Subject Revision App</h1>
+    <div id="subject-buttons"></div>
+    <button id="clear-cache" onclick="confirmClearCache()">Clear Cache</button>
+    <div id="quiz-area"></div>
+
     <script>
-        function clearCache() {
+        async function loadSubjects() {
+            const response = await fetch('https://api.github.com/repos/STMTeacher/RE/contents');
+            const data = await response.json();
+            data.forEach(item => {
+                if (item.name.endsWith('.csv')) {
+                    const button = document.createElement('button');
+                    button.innerText = item.name;
+                    button.className = 'button';
+                    button.onclick = () => loadCSV(item.download_url);
+                    document.getElementById('subject-buttons').appendChild(button);
+                }
+            });
+        }
+
+        async function loadCSV(url) {
+            const response = await fetch(url);
+            if (!response.ok) {
+                alert('Failed to load CSV.');
+                return;
+            }
+            const text = await response.text();
+            const data = validateCSV(text);
+            // Load quiz with validated data
+        }
+
+        function validateCSV(text) {
+            // Basic validation check. Implement further checks as needed.
+            if (text.startsWith('\ufeff')) {
+                alert('Invalid CSV data.');
+                return null;
+            }
+            return text; // Assuming the validation passed
+        }
+
+        function confirmClearCache() {
             if (confirm('Are you sure you want to clear the cache?')) {
-                // Logic to clear cache
-                alert('Cache cleared successfully!');
+                // Implement cache clearing function
             }
         }
-        // Implement any necessary security fixes in JavaScript as required here.
+
+        window.onload = loadSubjects;
     </script>
 </body>
 </html>
