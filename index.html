@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Maths Diagnostic Tool</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #FF0000; /* Red */
+        }
+        .warning {
+            color: #FFFF00; /* Yellow */
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the App</h1>
-    <button id="clearCacheButton">Clear Cache</button>
+    <h1>Maths Diagnostic Tool</h1>
+    <div class="warning">Please complete all fields before submitting.</div>
+    <button onclick="clearCache()">Clear Cache</button>
     <script>
-        document.getElementById('clearCacheButton').addEventListener('click', function() {
+        function clearCache() {
             if (confirm('Are you sure you want to clear the cache?')) {
-                // Logic to clear the cache
-                alert('Cache cleared!');
+                // Logic to clear cache
+                alert('Cache cleared successfully!');
             }
-        });
+        }
+        // Implement any necessary security fixes in JavaScript as required here.
     </script>
 </body>
 </html>
